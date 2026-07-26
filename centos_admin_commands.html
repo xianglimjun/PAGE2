@@ -1,0 +1,2932 @@
+<style>body { background-color: #121212; color: white; font-family: monospace; } table { border-collapse: collapse; margin: 20px 0; } th, td { border: 1px solid #444; padding: 12px; text-align: left; }</style><h1>CentOS Administration Command Reference</h1>CentOS Administration Command Reference</h1>
+<p>A comprehensive cheat‑sheet of the most useful commands you’ll encounter on CentOS (versions 6‑8). Each entry
+    includes a brief description, common options, and practical examples. Use this as a study guide for a practical
+    server‑administration test.</p>
+<hr>
+<h2>1. File &amp; Directory Management</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">ls</code></td>
+                <td>List directory contents</td>
+                <td><code class="notranslate">-l</code> long, <code class="notranslate">-a</code> all, <code
+                        class="notranslate">-h</code> human‑readable, <code class="notranslate">-R</code> recursive</td>
+                <td><code class="notranslate">ls -lha /etc</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cd</code></td>
+                <td>Change directory</td>
+                <td>–</td>
+                <td><code class="notranslate">cd /var/log</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pwd</code></td>
+                <td>Print working directory</td>
+                <td>–</td>
+                <td><code class="notranslate">pwd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cp</code></td>
+                <td>Copy files/directories</td>
+                <td><code class="notranslate">-r</code> recursive, <code class="notranslate">-i</code> interactive,
+                    <code class="notranslate">-u</code> update, <code class="notranslate">-v</code> verbose</td>
+                <td><code class="notranslate">cp -r /home/user/docs /backup/</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mv</code></td>
+                <td>Move/rename</td>
+                <td><code class="notranslate">-i</code> interactive, <code class="notranslate">-v</code> verbose</td>
+                <td><code class="notranslate">mv oldname.txt newname.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">rm</code></td>
+                <td>Remove files/dirs</td>
+                <td><code class="notranslate">-r</code> recursive, <code class="notranslate">-f</code> force, <code
+                        class="notranslate">-i</code> interactive</td>
+                <td><code class="notranslate">rm -rf /tmp/old*</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mkdir</code></td>
+                <td>Make directories</td>
+                <td><code class="notranslate">-p</code> create parents, <code class="notranslate">-v</code> verbose</td>
+                <td><code class="notranslate">mkdir -p /srv/www/html</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">touch</code></td>
+                <td>Create empty file or update timestamp</td>
+                <td>–</td>
+                <td><code class="notranslate">touch /var/log/myapp.log</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cat</code></td>
+                <td>Concatenate and display files</td>
+                <td><code class="notranslate">-n</code> number lines, <code class="notranslate">-A</code> show all</td>
+                <td><code class="notranslate">cat /etc/passwd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">less</code></td>
+                <td>Page‑wise viewer (forward/back)</td>
+                <td>–</td>
+                <td><code class="notranslate">less /var/log/messages</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">more</code></td>
+                <td>Simple page‑wise viewer</td>
+                <td>–</td>
+                <td><code class="notranslate">more /etc/hosts</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">head</code></td>
+                <td>Show first N lines</td>
+                <td><code class="notranslate">-n NUM</code></td>
+                <td><code class="notranslate">head -20 /var/log/secure</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">tail</code></td>
+                <td>Show last N lines; follow live</td>
+                <td><code class="notranslate">-n NUM</code>, <code class="notranslate">-f</code> follow</td>
+                <td><code class="notranslate">tail -f /var/log/httpd/access_log</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">grep</code></td>
+                <td>Search text using patterns</td>
+                <td><code class="notranslate">-i</code> ignore case, <code class="notranslate">-r</code> recursive,
+                    <code class="notranslate">-v</code> invert, <code class="notranslate">-n</code> line numbers</td>
+                <td><code class="notranslate">grep -i "error" /var/log/*</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">find</code></td>
+                <td>Locate files/directories</td>
+                <td><code class="notranslate">-name</code>, <code class="notranslate">-type f/d</code>, <code
+                        class="notranslate">-size</code>, <code class="notranslate">-exec</code>, <code
+                        class="notranslate">-mtime</code></td>
+                <td><code class="notranslate">find /var -type f -name "*.log" -mtime +7</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">which</code></td>
+                <td>Show full path of executable</td>
+                <td>–</td>
+                <td><code class="notranslate">which ssh</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">whereis</code></td>
+                <td>Locate binary, source, man page</td>
+                <td>–</td>
+                <td><code class="notranslate">whereis bash</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">man</code></td>
+                <td>Display manual page</td>
+                <td>–</td>
+                <td><code class="notranslate">man iptables</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">info</code></td>
+                <td>Info documentation (GNU)</td>
+                <td>–</td>
+                <td><code class="notranslate">info coreutils</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">echo</code></td>
+                <td>Print text or variables</td>
+                <td><code class="notranslate">-e</code> enable escapes</td>
+                <td><code class="notranslate">echo -e "Line1\nLine2"</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">printf</code></td>
+                <td>Formatted output</td>
+                <td>–</td>
+                <td><code class="notranslate">printf "%-10s %s\n" "User" "ID"</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dirname</code> / <code class="notranslate">basename</code></td>
+                <td>Extract path components</td>
+                <td>–</td>
+                <td><code class="notranslate">basename /etc/passwd</code> → <code class="notranslate">passwd</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>2. System Information &amp; Monitoring</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">uname</code></td>
+                <td>Kernel &amp; system info</td>
+                <td><code class="notranslate">-a</code> all, <code class="notranslate">-r</code> release, <code
+                        class="notranslate">-m</code> machine</td>
+                <td><code class="notranslate">uname -r</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hostname</code></td>
+                <td>Show/set system hostname</td>
+                <td>–</td>
+                <td><code class="notranslate">hostnamectl set-hostname web01</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hostnamectl</code></td>
+                <td>Control hostname (systemd)</td>
+                <td><code class="notranslate">set-hostname</code>, <code class="notranslate">status</code></td>
+                <td><code class="notranslate">hostnamectl status</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">uptime</code></td>
+                <td>How long system has been running</td>
+                <td>–</td>
+                <td><code class="notranslate">uptime</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">who</code></td>
+                <td>Who is logged in</td>
+                <td>–</td>
+                <td><code class="notranslate">who</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">w</code></td>
+                <td>Who + what they are doing</td>
+                <td>–</td>
+                <td><code class="notranslate">w</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">last</code></td>
+                <td>Show last logins</td>
+                <td><code class="notranslate">-n NUM</code>, <code class="notranslate">-f FILE</code></td>
+                <td><code class="notranslate">last -n 10</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lastlog</code></td>
+                <td>Last login of all users</td>
+                <td>–</td>
+                <td><code class="notranslate">lastlog</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">df</code></td>
+                <td>Disk space usage</td>
+                <td><code class="notranslate">-h</code> human, <code class="notranslate">-T</code> type, <code
+                        class="notranslate">-i</code> inodes</td>
+                <td><code class="notranslate">df -hT</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">du</code></td>
+                <td>Estimate file space usage</td>
+                <td><code class="notranslate">-h</code>, <code class="notranslate">-s</code> summary, <code
+                        class="notranslate">-c</code> total</td>
+                <td><code class="notranslate">du -sh /var/*</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">free</code></td>
+                <td>Memory usage</td>
+                <td><code class="notranslate">-h</code>, <code class="notranslate">-m</code>, <code
+                        class="notranslate">-g</code></td>
+                <td><code class="notranslate">free -h</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">top</code></td>
+                <td>Dynamic process viewer</td>
+                <td>–</td>
+                <td><code class="notranslate">top</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">htop</code></td>
+                <td>Interactive process viewer (if installed)</td>
+                <td>–</td>
+                <td><code class="notranslate">htop</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ps</code></td>
+                <td>Snapshot of processes</td>
+                <td><code class="notranslate">-ef</code> full, <code class="notranslate">-eo</code> custom format</td>
+                <td>`ps -ef</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pstree</code></td>
+                <td>Tree view of processes</td>
+                <td>–</td>
+                <td><code class="notranslate">pstree -p</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pgrep</code> / <code class="notranslate">pkill</code></td>
+                <td>Find/kill processes by name</td>
+                <td><code class="notranslate">-l</code>, <code class="notranslate">-u USER</code></td>
+                <td><code class="notranslate">pgrep -l sshd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">kill</code> / <code class="notranslate">killall</code></td>
+                <td>Send signal to PID/name</td>
+                <td><code class="notranslate">-9</code> SIGKILL, <code class="notranslate">-15</code> SIGTERM</td>
+                <td><code class="notranslate">kill -15 $(pgrep httpd)</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nice</code> / <code class="notranslate">renice</code></td>
+                <td>Set/adjust process priority</td>
+                <td><code class="notranslate">-n PRIORITY</code></td>
+                <td><code class="notranslate">nice -n 10 command</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ionice</code></td>
+                <td>Set I/O scheduling class/priority</td>
+                <td><code class="notranslate">-c CLASS -n PRIO</code></td>
+                <td><code class="notranslate">ionice -c2 -n7 dd if=/dev/zero of=/tmp/test bs=1M count=100</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vmstat</code></td>
+                <td>Virtual memory statistics</td>
+                <td><code class="notranslate">[delay [count]]</code></td>
+                <td><code class="notranslate">vmstat 1 5</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iostat</code></td>
+                <td>CPU &amp; I/O statistics</td>
+                <td><code class="notranslate">-x</code> extended, <code class="notranslate">-m</code> MB</td>
+                <td><code class="notranslate">iostat -xz 1 3</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mpstat</code></td>
+                <td>Per‑CPU utilization</td>
+                <td><code class="notranslate">-P ALL</code></td>
+                <td><code class="notranslate">mpstat -P ALL 1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pidstat</code></td>
+                <td>Per‑process statistics</td>
+                <td><code class="notranslate">-r</code> resident, <code class="notranslate">-d</code> I/O</td>
+                <td><code class="notranslate">pidstat -d 1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sar</code></td>
+                <td>Collect/report system activity</td>
+                <td><code class="notranslate">-u</code> CPU, <code class="notranslate">-r</code> memory, <code
+                        class="notranslate">-n DEV</code> network</td>
+                <td><code class="notranslate">sar -u 1 3</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dmesg</code></td>
+                <td>Kernel ring buffer</td>
+                <td><code class="notranslate">-T</code> human timestamps, <code class="notranslate">-n LEVEL</code></td>
+                <td>`dmesg</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">journalctl</code></td>
+                <td>Query systemd journal</td>
+                <td><code class="notranslate">-b</code> boot, <code class="notranslate">-u UNIT</code>, <code
+                        class="notranslate">-f</code> follow, <code class="notranslate">--since</code></td>
+                <td><code class="notranslate">journalctl -u sshd -f</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsblk</code></td>
+                <td>List block devices</td>
+                <td><code class="notranslate">-f</code> with filesystem info, <code class="notranslate">-o</code> custom
+                    columns</td>
+                <td><code class="notranslate">lsblk -f</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">blkid</code></td>
+                <td>Locate/print block device attributes</td>
+                <td>–</td>
+                <td><code class="notranslate">blkid /dev/sda1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fdisk</code></td>
+                <td>Partition table manipulator (MBR)</td>
+                <td><code class="notranslate">-l</code> list</td>
+                <td><code class="notranslate">fdisk -l /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">parted</code></td>
+                <td>Partition manipulator (GPT/MBR)</td>
+                <td><code class="notranslate">-l</code> list, <code class="notranslate">resizepart</code></td>
+                <td><code class="notranslate">parted /dev/sdb print</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mkfs</code></td>
+                <td>Create a filesystem</td>
+                <td><code class="notranslate">-t TYPE</code> (ext4, xfs, …)</td>
+                <td><code class="notranslate">mkfs -t ext4 /dev/sdb1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fsck</code></td>
+                <td>Check/repair filesystem</td>
+                <td><code class="notranslate">-y</code> auto‑repair, <code class="notranslate">-t TYPE</code></td>
+                <td><code class="notranslate">fsck -y /dev/sda2</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mount</code></td>
+                <td>Mount filesystems</td>
+                <td><code class="notranslate">-t TYPE</code>, <code class="notranslate">-o opts</code></td>
+                <td><code class="notranslate">mount -t ext4 /dev/sdb1 /mnt/data</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">umount</code></td>
+                <td>Unmount</td>
+                <td>–</td>
+                <td><code class="notranslate">umount /mnt/data</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">findmnt</code></td>
+                <td>List mounted filesystems</td>
+                <td>–</td>
+                <td><code class="notranslate">findmnt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">df</code> / <code class="notranslate">du</code></td>
+                <td>Disk usage (see above)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hdparm</code></td>
+                <td>Get/set SATA/IDE parameters</td>
+                <td><code class="notranslate">-I</code> info, <code class="notranslate">-tT</code> timings</td>
+                <td><code class="notranslate">hdparm -I /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">smartctl</code></td>
+                <td>SMART disk health</td>
+                <td><code class="notranslate">-a</code> all info</td>
+                <td><code class="notranslate">smartctl -a /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lspci</code></td>
+                <td>List PCI devices</td>
+                <td><code class="notranslate">-v</code> verbose, <code class="notranslate">-k</code> kernel drivers</td>
+                <td><code class="notranslate">lspci -v</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsusb</code></td>
+                <td>List USB devices</td>
+                <td><code class="notranslate">-v</code> verbose</td>
+                <td><code class="notranslate">lsusb</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lshw</code></td>
+                <td>List hardware (requires root)</td>
+                <td><code class="notranslate">-short</code>, <code class="notranslate">-json</code></td>
+                <td><code class="notranslate">lshw -short</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dmidecode</code></td>
+                <td>Dump SMBIOS/DMI data</td>
+                <td><code class="notranslate">-t TYPE</code> (bios, system, baseboard…)</td>
+                <td><code class="notranslate">dmidecode -t system</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hostnamectl</code></td>
+                <td>See also above</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">timedatectl</code></td>
+                <td>Query/set time &amp; timezone</td>
+                <td><code class="notranslate">set-timezone</code>, <code class="notranslate">set-ntp</code></td>
+                <td><code class="notranslate">timedatectl set-timezone Asia/Singapore</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">clock</code> / <code class="notranslate">hwclock</code></td>
+                <td>Hardware clock</td>
+                <td><code class="notranslate">-w</code> set systohc, <code class="notranslate">-s</code> set from
+                    hwclock</td>
+                <td><code class="notranslate">hwclock --systohc</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">date</code></td>
+                <td>Print/set system date</td>
+                <td>–</td>
+                <td><code class="notranslate">date "+%Y-%m-%d %H:%M:%S"</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>3. User &amp; Group Management</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">useradd</code></td>
+                <td>Add a new user</td>
+                <td><code class="notranslate">-m</code> create home, <code class="notranslate">-s SHELL</code>, <code
+                        class="notranslate">-G GROUPS</code>, <code class="notranslate">-c COMMENT</code></td>
+                <td><code class="notranslate">useradd -m -s /bin/bash -G wheel jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">usermod</code></td>
+                <td>Modify existing user</td>
+                <td><code class="notranslate">-aG</code> append group, <code class="notranslate">-l</code> new login,
+                    <code class="notranslate">-L/U</code> lock/unlock, <code class="notranslate">-e EXPIRE</code></td>
+                <td><code class="notranslate">usermod -aG docker jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">userdel</code></td>
+                <td>Delete a user</td>
+                <td><code class="notranslate">-r</code> remove home &amp; mail</td>
+                <td><code class="notranslate">userdel -r jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">groupadd</code></td>
+                <td>Add a new group</td>
+                <td>–</td>
+                <td><code class="notranslate">groupadd developers</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">groupmod</code></td>
+                <td>Modify group</td>
+                <td><code class="notranslate">-n</code> new name, <code class="notranslate">-g</code> new GID</td>
+                <td><code class="notranslate">groupmod -n devs developers</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">groupdel</code></td>
+                <td>Delete a group</td>
+                <td>–</td>
+                <td><code class="notranslate">groupdel oldgroup</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">id</code></td>
+                <td>Show user/group IDs</td>
+                <td>–</td>
+                <td><code class="notranslate">id jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">whoami</code></td>
+                <td>Effective user name</td>
+                <td>–</td>
+                <td><code class="notranslate">whoami</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">passwd</code></td>
+                <td>Change user password</td>
+                <td><code class="notranslate">-l</code> lock, <code class="notranslate">-u</code> unlock, <code
+                        class="notranslate">-e</code> force change, <code class="notranslate">-S</code> status</td>
+                <td><code class="notranslate">passwd jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chage</code></td>
+                <td>Change password expiry info</td>
+                <td><code class="notranslate">-l</code> list, <code class="notranslate">-m MIN</code>, <code
+                        class="notranslate">-M MAX</code>, <code class="notranslate">-W WARN</code>, <code
+                        class="notranslate">-I INACTIVE</code></td>
+                <td><code class="notranslate">chage -l jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">gpasswd</code></td>
+                <td>Administer /etc/group</td>
+                <td><code class="notranslate">-a</code> add user, <code class="notranslate">-d</code> delete user, <code
+                        class="notranslate">-A</code> admins</td>
+                <td><code class="notranslate">gpasswd -a jdoe wheel</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">su</code></td>
+                <td>Switch user</td>
+                <td><code class="notranslate">-</code> login shell, <code class="notranslate">-c COMMAND</code></td>
+                <td><code class="notranslate">su - root</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sudo</code></td>
+                <td>Execute command as another user</td>
+                <td><code class="notranslate">-u USER</code>, <code class="notranslate">-l</code> list privileges</td>
+                <td><code class="notranslate">sudo -u nginx systemctl restart nginx</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">visudo</code></td>
+                <td>Safely edit sudoers file</td>
+                <td>–</td>
+                <td><code class="notranslate">visudo</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chsh</code></td>
+                <td>Change login shell</td>
+                <td><code class="notranslate">-s SHELL</code></td>
+                <td><code class="notranslate">chsh -s /bin/zsh jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chfn</code></td>
+                <td>Change finger information</td>
+                <td>–</td>
+                <td><code class="notranslate">chfn jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">groups</code></td>
+                <td>List group membership</td>
+                <td>–</td>
+                <td><code class="notranslate">groups jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">newgrp</code></td>
+                <td>Log in to a new group (changes primary GID)</td>
+                <td>–</td>
+                <td><code class="notranslate">newgrp developers</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">logout</code></td>
+                <td>Exit login shell</td>
+                <td>–</td>
+                <td><code class="notranslate">logout</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>4. Permissions &amp; Ownership</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">chmod</code></td>
+                <td>Change file mode bits</td>
+                <td><code class="notranslate">u/g/o/a +/- rwx</code>, <code class="notranslate">-R</code> recursive,
+                    <code class="notranslate">--reference=FILE</code></td>
+                <td><code class="notranslate">chmod 750 /var/www/html</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chown</code></td>
+                <td>Change file owner/group</td>
+                <td><code class="notranslate">-R</code> recursive, <code class="notranslate">--reference=FILE</code>
+                </td>
+                <td><code class="notranslate">chown -R nginx:nginx /var/log/nginx</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chgrp</code></td>
+                <td>Change group only</td>
+                <td><code class="notranslate">-R</code> recursive</td>
+                <td><code class="notranslate">chgrp -R adm /var/log</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">umask</code></td>
+                <td>Show/set default creation mask</td>
+                <td>–</td>
+                <td><code class="notranslate">umask 022</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">getfacl</code></td>
+                <td>Get POSIX ACLs</td>
+                <td>–</td>
+                <td><code class="notranslate">getfacl /shared</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">setfacl</code></td>
+                <td>Set POSIX ACLs</td>
+                <td><code class="notranslate">-m</code> modify, <code class="notranslate">-x</code> remove, <code
+                        class="notranslate">-b</code> remove all, <code class="notranslate">-R</code> recursive</td>
+                <td><code class="notranslate">setfacl -m u:jdoe:rwx /shared</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ls -l</code></td>
+                <td>Show mode &amp; ownership (see ls)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">stat</code></td>
+                <td>Detailed file/info</td>
+                <td>–</td>
+                <td><code class="notranslate">stat /etc/passwd</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>5. Package Management (YUM/DNF)</h2>
+<blockquote>
+    <p>CentOS 6/7 → <strong>yum</strong>; CentOS 8 → <strong>dnf</strong> (yum is a symlink to dnf).<br>
+        Commands are largely interchangeable.</p>
+</blockquote>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">yum check-update</code></td>
+                <td>List available updates</td>
+                <td>–</td>
+                <td><code class="notranslate">yum check-update</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum update</code></td>
+                <td>Update all packages</td>
+                <td><code class="notranslate">-y</code> assume yes</td>
+                <td><code class="notranslate">yum -y update</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum install</code></td>
+                <td>Install package(s)</td>
+                <td><code class="notranslate">-y</code></td>
+                <td><code class="notranslate">yum install httpd php</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum remove</code></td>
+                <td>Erase package(s)</td>
+                <td><code class="notranslate">-y</code></td>
+                <td><code class="notranslate">yum remove samba</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum list</code></td>
+                <td>List installed/available</td>
+                <td><code class="notranslate">installed</code>, <code class="notranslate">available</code>, <code
+                        class="notranslate">updates</code></td>
+                <td><code class="notranslate">yum list installed</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum info</code></td>
+                <td>Show package details</td>
+                <td>–</td>
+                <td><code class="notranslate">yum info vim-enhanced</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum search</code></td>
+                <td>Search package names/summary</td>
+                <td>–</td>
+                <td><code class="notranslate">yum search firewalld</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum provides</code></td>
+                <td>Find which package provides a file</td>
+                <td>–</td>
+                <td><code class="notranslate">yum provides /usr/bin/terraform</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum clean all</code></td>
+                <td>Clean caches</td>
+                <td>–</td>
+                <td><code class="notranslate">yum clean all</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum history</code></td>
+                <td>Transaction history</td>
+                <td><code class="notranslate">list</code>, <code class="notranslate">info ID</code>, <code
+                        class="notranslate">undo ID</code>, <code class="notranslate">redo ID</code></td>
+                <td><code class="notranslate">yum history list</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum deplist</code></td>
+                <td>Show dependencies</td>
+                <td>–</td>
+                <td><code class="notranslate">yum deplist bash</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum reinstall</code></td>
+                <td>Reinstall package</td>
+                <td>–</td>
+                <td><code class="notranslate">yum reinstall glibc</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum downgrade</code></td>
+                <td>Downgrade to older version</td>
+                <td>–</td>
+                <td><code class="notranslate">yum downgrade openssl</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">rpm</code></td>
+                <td>Low‑level RPM tool</td>
+                <td><code class="notranslate">-qi</code> query info, <code class="notranslate">-ql</code> list files,
+                    <code class="notranslate">-Vf</code> verify, <code class="notranslate">-Uvh</code> upgrade, <code
+                        class="notranslate">-e</code> erase</td>
+                <td><code class="notranslate">rpm -qi curl</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">rpm -Va</code></td>
+                <td>Verify all installed packages</td>
+                <td>–</td>
+                <td><code class="notranslate">rpm -Va</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">createrepo</code></td>
+                <td>Create a YUM repository metadata</td>
+                <td>–</td>
+                <td><code class="notranslate">createrepo /my/local/repo</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">repoquery</code></td>
+                <td>Query repository (like yum provides)</td>
+                <td>–</td>
+                <td><code class="notranslate">repoquery --whatrequires httpd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">yum-config-manager</code></td>
+                <td>Manage repo config</td>
+                <td><code class="notranslate">--add-repo</code>, <code class="notranslate">--enable</code>, <code
+                        class="notranslate">--disable</code></td>
+                <td><code class="notranslate">yum-config-manager --add-repo=https://example.com/myrepo.repo</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dnf</code></td>
+                <td>Same as yum on CentOS 8+</td>
+                <td>–</td>
+                <td><code class="notranslate">dnf install nginx</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dnf module</code></td>
+                <td>Manage modular streams</td>
+                <td><code class="notranslate">list</code>, <code class="notranslate">info</code>, <code
+                        class="notranslate">install</code>, <code class="notranslate">remove</code>, <code
+                        class="notranslate">enable</code>, <code class="notranslate">disable</code>, <code
+                        class="notranslate">reset</code></td>
+                <td><code class="notranslate">dnf module list</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">alternatives</code></td>
+                <td>Manage symbolic links for default commands</td>
+                <td><code class="notranslate">--display</code>, <code class="notranslate">--set</code>, <code
+                        class="notranslate">--auto</code></td>
+                <td><code class="notranslate">alternatives --display editor</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>6. Services &amp; Systemd (CentOS 7+)</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">systemctl</code></td>
+                <td>Control systemd units</td>
+                <td><code class="notranslate">start</code>, <code class="notranslate">stop</code>, <code
+                        class="notranslate">restart</code>, <code class="notranslate">reload</code>, <code
+                        class="notranslate">enable</code>, <code class="notranslate">disable</code>, <code
+                        class="notranslate">is-enabled</code>, <code class="notranslate">status</code>, <code
+                        class="notranslate">list-units</code>, <code class="notranslate">list-unit-files</code>, <code
+                        class="notranslate">mask</code>, <code class="notranslate">unmask</code>, <code
+                        class="notranslate">daemon-reload</code>, <code class="notranslate">reset-failed</code>, <code
+                        class="notranslate">isolate</code></td>
+                <td><code class="notranslate">systemctl status sshd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">service</code></td>
+                <td>Legacy SysV init wrapper (redirects to systemctl)</td>
+                <td><code class="notranslate">start</code>, <code class="notranslate">stop</code>, <code
+                        class="notranslate">restart</code>, <code class="notranslate">status</code></td>
+                <td><code class="notranslate">service iptables restart</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chkconfig</code></td>
+                <td>Legacy SysV runlevel manager (CentOS 6)</td>
+                <td><code class="notranslate">--list</code>, <code class="notranslate">--add</code>, <code
+                        class="notranslate">--del</code>, levels</td>
+                <td><code class="notranslate">chkconfig --list httpd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">init</code> / <code class="notranslate">telinit</code></td>
+                <td>Change SysV runlevel</td>
+                <td>–</td>
+                <td><code class="notranslate">telinit 3</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">runlevel</code></td>
+                <td>Show previous &amp; current runlevel</td>
+                <td>–</td>
+                <td><code class="notranslate">runlevel</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">shutdown</code></td>
+                <td>Halt/power‑off/reboot</td>
+                <td><code class="notranslate">-h</code> halt, <code class="notranslate">-P</code> poweroff, <code
+                        class="notranslate">-r</code> reboot, <code class="notranslate">+TIME</code> or <code
+                        class="notranslate">now</code></td>
+                <td><code class="notranslate">shutdown -r now</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">reboot</code></td>
+                <td>Reboot system</td>
+                <td>–</td>
+                <td><code class="notranslate">reboot</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">halt</code></td>
+                <td>Halt system</td>
+                <td>–</td>
+                <td><code class="notranslate">halt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">poweroff</code></td>
+                <td>Power off system</td>
+                <td>–</td>
+                <td><code class="notranslate">poweroff</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">systemd-analyze</code></td>
+                <td>Boot time analysis</td>
+                <td><code class="notranslate">blame</code>, <code class="notranslate">critical-chain</code>, <code
+                        class="notranslate">plot</code></td>
+                <td><code class="notranslate">systemd-analyze blame</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">systemd-run</code></td>
+                <td>Run a command as a transient service</td>
+                <td><code class="notranslate">--unit=NAME</code>, <code class="notranslate">--property=</code></td>
+                <td><code
+                        class="notranslate">systemd-run --unit=backup.timer --on-active=12h /usr/local/bin/backup.sh</code>
+                </td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">loginctl</code></td>
+                <td>Manage user sessions/seats</td>
+                <td><code class="notranslate">list-sessions</code>, <code class="notranslate">show-user</code></td>
+                <td><code class="notranslate">loginctl list-sessions</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hostnamectl</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">timedatectl</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">localectl</code></td>
+                <td>Set locale &amp; keymap</td>
+                <td><code class="notranslate">set-locale</code>, <code class="notranslate">set-keymap</code></td>
+                <td><code class="notranslate">localectl set-locale LANG=en_US.UTF-8</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>7. Networking</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">ip</code></td>
+                <td>Show/manipulate routing, devices, policy</td>
+                <td><code class="notranslate">addr</code>, <code class="notranslate">link</code>, <code
+                        class="notranslate">route</code>, <code class="notranslate">neigh</code>, <code
+                        class="notranslate">rule</code></td>
+                <td><code class="notranslate">ip addr show</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ifconfig</code></td>
+                <td>Deprecated but still present (net‑tools)</td>
+                <td>–</td>
+                <td><code class="notranslate">ifconfig eth0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nmcli</code></td>
+                <td>NetworkManager CLI</td>
+                <td><code class="notranslate">device</code>, <code class="notranslate">connection</code>, <code
+                        class="notranslate">radio</code>, <code class="notranslate">general</code></td>
+                <td><code class="notranslate">nmcli device status</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nmtui</code></td>
+                <td>Text UI for NetworkManager</td>
+                <td>–</td>
+                <td><code class="notranslate">nmtui</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ethtool</code></td>
+                <td>Query/control Ethernet driver settings</td>
+                <td><code class="notranslate">-i</code> driver info, <code class="notranslate">-k</code> offload, <code
+                        class="notranslate">-S</code> stats</td>
+                <td><code class="notranslate">ethtool eth0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mii-tool</code></td>
+                <td>Legacy link negotiation checker</td>
+                <td>–</td>
+                <td><code class="notranslate">mii-tool eth0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ping</code></td>
+                <td>ICMP echo test</td>
+                <td><code class="notranslate">-c COUNT</code>, <code class="notranslate">-i INTERVAL</code>, <code
+                        class="notranslate">-s SIZE</code></td>
+                <td><code class="notranslate">ping -c 4 8.8.8.8</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">traceroute</code> / <code class="notranslate">tracepath</code></td>
+                <td>Path to host</td>
+                <td><code class="notranslate">-n</code> no DNS, <code class="notranslate">-m MAX_HOPS</code></td>
+                <td><code class="notranslate">traceroute -n google.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">netstat</code></td>
+                <td>Network connections, routing tables, interfaces</td>
+                <td><code class="notranslate">-tulpn</code> (TCP/UDP listening), <code class="notranslate">-r</code>
+                    routing, <code class="notranslate">-s</code> stats</td>
+                <td><code class="notranslate">netstat -tulpn</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ss</code></td>
+                <td>Socket statistics (modern replacement)</td>
+                <td><code class="notranslate">-tulpn</code>, <code class="notranslate">-s</code> summary</td>
+                <td><code class="notranslate">ss -tulpn</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nc</code> (netcat)</td>
+                <td>Read/write network connections</td>
+                <td><code class="notranslate">-l</code> listen, <code class="notranslate">-p PORT</code>, <code
+                        class="notranslate">-u</code> UDP, <code class="notranslate">-v</code> verbose</td>
+                <td><code class="notranslate">nc -luvp 9999</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">telnet</code></td>
+                <td>Plain‑text TCP client</td>
+                <td>–</td>
+                <td><code class="notranslate">telnet example.com 80</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ssh</code></td>
+                <td>Secure remote login</td>
+                <td><code class="notranslate">-p PORT</code>, <code class="notranslate">-i KEYFILE</code>, <code
+                        class="notranslate">-L</code> local forward, <code class="notranslate">-R</code> remote forward
+                </td>
+                <td><code class="notranslate">ssh -p 2222 user@host</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">scp</code></td>
+                <td>Secure copy over SSH</td>
+                <td><code class="notranslate">-r</code> recursive, <code class="notranslate">-P PORT</code></td>
+                <td><code class="notranslate">scp -P 2222 file.txt user@host:/tmp/</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sftp</code></td>
+                <td>Interactive SFTP client</td>
+                <td>–</td>
+                <td><code class="notranslate">sftp user@host</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">rsync</code></td>
+                <td>Fast, versatile file sync</td>
+                <td><code class="notranslate">-avz</code>, <code class="notranslate">--delete</code>, <code
+                        class="notranslate">--progress</code>, <code class="notranslate">-e "ssh -p 2222"</code></td>
+                <td><code class="notranslate">rsync -avz -e "ssh -p 2222" /src/ user@host:/dst/</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">wget</code></td>
+                <td>Non‑interactive downloader</td>
+                <td><code class="notranslate">-c</code> continue, <code class="notranslate">-r</code> recursive, <code
+                        class="notranslate">--no-check-certificate</code></td>
+                <td><code class="notranslate">wget https://example.com/file.iso</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">curl</code></td>
+                <td>Transfer data with URL syntax</td>
+                <td><code class="notranslate">-O</code> remote name, <code class="notranslate">-L</code> follow
+                    redirects, <code class="notranslate">-u user:pass</code>, <code class="notranslate">-X POST</code>
+                </td>
+                <td><code class="notranslate">curl -O https://example.com/file.tar.gz</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">host</code></td>
+                <td>DNS lookup</td>
+                <td>–</td>
+                <td><code class="notranslate">host example.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dig</code></td>
+                <td>DNS query utility</td>
+                <td><code class="notranslate">+short</code>, <code class="notranslate">@SERVER</code></td>
+                <td><code class="notranslate">dig +short example.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nslookup</code></td>
+                <td>Legacy DNS query</td>
+                <td>–</td>
+                <td><code class="notranslate">nslookup example.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">arp</code></td>
+                <td>Show/modify ARP cache</td>
+                <td><code class="notranslate">-a</code> all, <code class="notranslate">-d</code> delete</td>
+                <td><code class="notranslate">arp -a</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iptables</code></td>
+                <td>IPv4 packet filter (legacy)</td>
+                <td><code class="notranslate">-L</code> list, <code class="notranslate">-A</code> append, <code
+                        class="notranslate">-D</code> delete, <code class="notranslate">-F</code> flush, <code
+                        class="notranslate">-t nat</code> table</td>
+                <td><code class="notranslate">iptables -L -v -n</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iptables-save</code> / <code class="notranslate">iptables-restore</code>
+                </td>
+                <td>Save/restore rules</td>
+                <td>–</td>
+                <td><code class="notranslate">iptables-save &gt; /etc/sysconfig/iptables</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">firewall-cmd</code></td>
+                <td>firewalld CLI (default on CentOS 7+)</td>
+                <td><code class="notranslate">--state</code>, <code class="notranslate">--reload</code>, <code
+                        class="notranslate">--list-all</code>, <code class="notranslate">--add-service=</code>, <code
+                        class="notranslate">--remove-service=</code>, <code
+                        class="notranslate">--add-port=PORT/proto</code>, <code class="notranslate">--permanent</code>
+                </td>
+                <td><code class="notranslate">firewall-cmd --permanent --add-service=http --reload</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">firewall-offline-cmd</code></td>
+                <td>Modify firewalld without running service</td>
+                <td>–</td>
+                <td><code class="notranslate">firewall-offline-cmd --list-all</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">semanage port</code></td>
+                <td>SELinux port labeling</td>
+                <td><code class="notranslate">-a -t http_port_t -p tcp 8080</code></td>
+                <td><code class="notranslate">semanage port -a -t http_port_t -p tcp 8080</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">getenforce</code> / <code class="notranslate">setenforce</code></td>
+                <td>SELinux mode</td>
+                <td><code class="notranslate">Enforcing</code>, <code class="notranslate">Permissive</code>, <code
+                        class="notranslate">Disabled</code></td>
+                <td><code class="notranslate">getenforce</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sestatus</code></td>
+                <td>SELinux status summary</td>
+                <td>–</td>
+                <td><code class="notranslate">sestatus</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">semodule</code></td>
+                <td>Load/list SElinux modules</td>
+                <td><code class="notranslate">-l</code> list, <code class="notranslate">-i</code> install, <code
+                        class="notranslate">-r</code> remove</td>
+                <td><code class="notranslate">semodule -l</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">auditctl</code></td>
+                <td>Control audit daemon</td>
+                <td><code class="notranslate">-w</code> watch file, <code class="notranslate">-a</code> add rule</td>
+                <td><code class="notranslate">auditctl -w /etc/passwd -p wa -k passwd_changes</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ausearch</code></td>
+                <td>Search audit logs</td>
+                <td><code class="notranslate">-k KEY</code>, <code class="notranslate">-p</code> pid, <code
+                        class="notranslate">-sc</code> syscall</td>
+                <td><code class="notranslate">ausearch -k passwd_changes</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">aureport</code></td>
+                <td>Generate audit reports</td>
+                <td>–</td>
+                <td><code class="notranslate">aureport --summary</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">setsebool</code></td>
+                <td>Toggle SELinux boolean</td>
+                <td><code class="notranslate">-P</code> persistent</td>
+                <td><code class="notranslate">setsebool -P httpd_can_network_connect on</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">toggle SELinux boolean</code> (alternative)</td>
+                <td>–</td>
+                <td><code class="notranslate">setsebool httpd_can_network_connect 1</code></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>8. Storage – LVM, RAID &amp; Disk Management</h2>
+<h3>LVM (Logical Volume Manager)</h3>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">pvcreate</code></td>
+                <td>Initialize physical volume</td>
+                <td>–</td>
+                <td><code class="notranslate">pvcreate /dev/sdb1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vgcreate</code></td>
+                <td>Create volume group</td>
+                <td>–</td>
+                <td><code class="notranslate">vgcreate vg_data /dev/sdb1 /dev/sdc1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lvcreate</code></td>
+                <td>Create logical volume</td>
+                <td><code class="notranslate">-L SIZE</code>, <code class="notranslate">-n NAME</code>, <code
+                        class="notranslate">-l %EXTENTS</code></td>
+                <td><code class="notranslate">lvcreate -L 20G -n lv_web vg_data</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lvextend</code></td>
+                <td>Extend LV</td>
+                <td><code class="notranslate">-L +SIZE</code>, <code class="notranslate">-r</code> resize FS together
+                    (if using xfs)</td>
+                <td><code class="notranslate">lvevent -L +5G -r /dev/vg_data/lv_web</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lvreduce</code></td>
+                <td>Reduce LV (requires unmount &amp; fsck)</td>
+                <td><code class="notranslate">-L SIZE</code>, <code class="notranslate">-r</code></td>
+                <td><code class="notranslate">lvreduce -L 10G /dev/vg_data/lv_web</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lvremove</code></td>
+                <td>Remove LV</td>
+                <td>–</td>
+                <td><code class="notranslate">lvremove /dev/vg_data/lv_snap</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pvs</code> / <code class="notranslate">vgs</code> / <code
+                        class="notranslate">lvs</code></td>
+                <td>Report PVs, VGs, LVs</td>
+                <td><code class="notranslate">-o</code> custom fields</td>
+                <td><code class="notranslate">pvs -o pv_name,vg_name,size,free</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pvdisplay</code> / <code class="notranslate">vgdisplay</code> / <code
+                        class="notranslate">lvdisplay</code></td>
+                <td>Detailed info</td>
+                <td>–</td>
+                <td><code class="notranslate">vgdisplay vg_data</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vgchange</code></td>
+                <td>Activate/deactivate VG</td>
+                <td>`-a y</td>
+                <td>n`</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vgremove</code></td>
+                <td>Remove VG</td>
+                <td>–</td>
+                <td><code class="notranslate">vgremove vg_old</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vgextend</code> / <code class="notranslate">vgreduce</code></td>
+                <td>Add/remove PVs from VG</td>
+                <td>–</td>
+                <td><code class="notranslate">vgextend vg_data /dev/sdd1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pvmove</code></td>
+                <td>Move data between PVs</td>
+                <td>–</td>
+                <td><code class="notranslate">pvmove /dev/sdb1 /dev/sde1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lvdisplay</code></td>
+                <td>Show LV attributes</td>
+                <td>–</td>
+                <td><code class="notranslate">lvdisplay /dev/vg_data/lv_web</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lvscan</code></td>
+                <td>Scan for LVs</td>
+                <td>–</td>
+                <td><code class="notranslate">lvscan</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vgcfgrestore</code> / <code class="notranslate">vgcfgbackup</code></td>
+                <td>Backup/restore VG metadata</td>
+                <td>–</td>
+                <td><code class="notranslate">vgcfgbackup vg_data</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<h3>Software RAID (mdadm)</h3>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">mdadm --create</code></td>
+                <td>Create RAID array</td>
+                <td><code class="notranslate">--level=</code>, <code class="notranslate">--raid-devices=</code>, <code
+                        class="notranslate">--name=</code></td>
+                <td><code
+                        class="notranslate">mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1</code>
+                </td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mdadm --detail</code></td>
+                <td>Show array detail</td>
+                <td>–</td>
+                <td><code class="notranslate">mdadm --detail /dev/md0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mdadm --manage</code></td>
+                <td>Add/remove devices</td>
+                <td><code class="notranslate">--add</code>, <code class="notranslate">--fail</code>, <code
+                        class="notranslate">--remove</code></td>
+                <td><code class="notranslate">mdadm /dev/md0 --add /dev/sdd1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mdadm --grow</code></td>
+                <td>Reshape array</td>
+                <td><code class="notranslate">--level=</code>, <code class="notranslate">--raid-devices=</code></td>
+                <td><code class="notranslate">mdadm --grow /dev/md0 --level=5 --raid-devices=4</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mdadm --stop</code></td>
+                <td>Stop array</td>
+                <td>–</td>
+                <td><code class="notranslate">mdadm --stop /dev/md0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mdadm --assemble</code></td>
+                <td>Assemble existing array</td>
+                <td>–</td>
+                <td><code class="notranslate">mdadm --assemble --scan</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mdadm --monitor</code></td>
+                <td>Monitor array (daemon mode)</td>
+                <td>–</td>
+                <td><code class="notranslate">mdadm --monitor --scan --daemonize</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mdadm --examine</code></td>
+                <td>Examine superblock</td>
+                <td>–</td>
+                <td><code class="notranslate">mdadm --examine /dev/sdb1</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<h3>Miscellaneous Disk Tools</h3>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">fdisk</code></td>
+                <td>MBR partition editor</td>
+                <td><code class="notranslate">-l</code> list</td>
+                <td><code class="notranslate">fdisk -l /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">parted</code></td>
+                <td>GPT/MBR partition editor</td>
+                <td><code class="notranslate">print</code>, <code class="notranslate">resizepart</code>, <code
+                        class="notranslate">mkpart</code></td>
+                <td><code class="notranslate">parted /dev/sdb print</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsblk</code></td>
+                <td>List block devices tree</td>
+                <td><code class="notranslate">-f</code> with FS info</td>
+                <td><code class="notranslate">lsblk -f</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">blkid</code></td>
+                <td>Show block device attributes</td>
+                <td>–</td>
+                <td><code class="notranslate">blkid /dev/sda1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mkfs</code></td>
+                <td>Make filesystem</td>
+                <td><code class="notranslate">-t ext4</code>, <code class="notranslate">-t xfs</code>, <code
+                        class="notranslate">-t btrfs</code></td>
+                <td><code class="notranslate">mkfs -t xfs /dev/vg_data/lv_web</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fsck</code></td>
+                <td>Check/repair FS</td>
+                <td><code class="notranslate">-y</code>, <code class="notranslate">-t</code></td>
+                <td><code class="notranslate">fsck -y /dev/md0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mount</code> / <code class="notranslate">umount</code></td>
+                <td>Mount/unmount FS</td>
+                <td><code class="notranslate">-t</code>, <code class="notranslate">-o</code></td>
+                <td><code class="notranslate">mount /dev/vg_data/lv_web /www</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">findmnt</code></td>
+                <td>List mounted FS</td>
+                <td>–</td>
+                <td><code class="notranslate">findmnt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">df</code> / <code class="notranslate">du</code></td>
+                <td>Disk usage</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hdparm</code></td>
+                <td>Tune/get SATA/IDE params</td>
+                <td><code class="notranslate">-I</code>, <code class="notranslate">-tT</code></td>
+                <td><code class="notranslate">hdparm -I /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">smartctl</code></td>
+                <td>SMART health</td>
+                <td><code class="notranslate">-a</code>, <code class="notranslate">-H</code></td>
+                <td><code class="notranslate">smartctl -a /dev/nvme0n1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">blockdev</code></td>
+                <td>Block device ioctl</td>
+                <td><code class="notranslate">--getsize64</code>, <code class="notranslate">--setro</code></td>
+                <td><code class="notranslate">blockdev --getsize64 /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cryptsetup</code></td>
+                <td>LUKS encryption</td>
+                <td><code class="notranslate">luksOpen</code>, <code class="notranslate">luksClose</code>, <code
+                        class="notranslate">luksFormat</code></td>
+                <td><code class="notranslate">cryptsetup luksOpen /dev/sdb1 cryptdata</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>9. Logging &amp; Log Management</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">journalctl</code></td>
+                <td>Query systemd journal</td>
+                <td><code class="notranslate">-b</code> boot, <code class="notranslate">-u UNIT</code>, <code
+                        class="notranslate">-f</code> follow, <code class="notranslate">--since</code>, <code
+                        class="notranslate">--until</code>, <code class="notranslate">-p</code> priority</td>
+                <td><code class="notranslate">journalctl -u sshd -f</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">rsyslogd</code> / <code class="notranslate">syslog-ng</code></td>
+                <td>Syslog daemon (usually running)</td>
+                <td>–</td>
+                <td><code class="notranslate">systemctl status rsyslog</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">logrotate</code></td>
+                <td>Rotate, compress, remove logs</td>
+                <td><code class="notranslate">-f</code> force, <code class="notranslate">-d</code> debug</td>
+                <td><code class="notranslate">logrotate -f /etc/logrotate.conf</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">last</code></td>
+                <td>Show login history (from /var/log/wtmp)</td>
+                <td>–</td>
+                <td><code class="notranslate">last</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lastb</code></td>
+                <td>Show bad login attempts</td>
+                <td>–</td>
+                <td><code class="notranslate">lastb</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dmesg</code></td>
+                <td>Kernel ring buffer</td>
+                <td><code class="notranslate">-T</code>, <code class="notranslate">-n LEVEL</code></td>
+                <td>`dmesg</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">tail -f</code></td>
+                <td>Follow log file</td>
+                <td>–</td>
+                <td><code class="notranslate">tail -f /var/log/secure</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">zgrep</code></td>
+                <td>Search in compressed logs</td>
+                <td>–</td>
+                <td><code class="notranslate">zgrep "error" /var/log/yum.log.*</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">savelog</code></td>
+                <td>Save a log file (rotate)</td>
+                <td>–</td>
+                <td><code class="notranslate">savelog -l 7 /var/log/myapp.log</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">logger</code></td>
+                <td>Send message to syslog</td>
+                <td><code class="notranslate">-t TAG</code>, <code class="notranslate">-p priority</code></td>
+                <td><code class="notranslate">logger -t backup "Backup started"</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">watch</code></td>
+                <td>Execute command repeatedly, show output</td>
+                <td><code class="notranslate">-n SECONDS</code></td>
+                <td><code class="notranslate">watch -n 5 "df -h"</code></td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>10. Performance &amp; Tuning Tools</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">sysctl</code></td>
+                <td>View/modify kernel parameters</td>
+                <td><code class="notranslate">-a</code> all, <code class="notranslate">-w key=value</code></td>
+                <td><code class="notranslate">sysctl -w net.ipv4.ip_forward=1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">/proc/sys/</code></td>
+                <td>Virtual filesystem for sysctl</td>
+                <td>–</td>
+                <td><code class="notranslate">cat /proc/sys/net/ipv4/tcp_fin_timeout</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iostat</code></td>
+                <td>CPU &amp; I/O stats (see above)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vmstat</code></td>
+                <td>Virtual memory stats (see above)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mpstat</code></td>
+                <td>Per‑CPU stats (see above)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pidstat</code></td>
+                <td>Per‑process stats (see above)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sar</code></td>
+                <td>System activity reporter (see above)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">perf</code></td>
+                <td>Linux profiling (if installed)</td>
+                <td><code class="notranslate">record</code>, <code class="notranslate">report</code>, <code
+                        class="notranslate">stat</code>, <code class="notranslate">top</code></td>
+                <td><code class="notranslate">perf record -g -a sleep 30</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">tcpdump</code></td>
+                <td>Packet capture</td>
+                <td><code class="notranslate">-i INTERFACE</code>, <code class="notranslate">-w FILE</code>, <code
+                        class="notranslate">-nn</code></td>
+                <td><code class="notranslate">tcpdump -i eth0 -nn -s 0 -c 1000</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iftop</code></td>
+                <td>Real‑time bandwidth per host</td>
+                <td>–</td>
+                <td><code class="notranslate">iftop -i eth0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nethogs</code></td>
+                <td>Bandwidth per process</td>
+                <td>–</td>
+                <td><code class="notranslate">nethogs</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iotop</code></td>
+                <td>Top-like I/O usage</td>
+                <td>–</td>
+                <td><code class="notranslate">iotop -o</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">stress</code> / <code class="notranslate">stress-ng</code></td>
+                <td>Generate load for testing</td>
+                <td><code class="notranslate">--cpu</code>, <code class="notranslate">--io</code>, <code
+                        class="notranslate">--vm</code>, <code class="notranslate">--timeout</code></td>
+                <td><code class="notranslate">stress --cpu 4 --timeout 60s</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hdparm</code></td>
+                <td>Disk benchmark (see above)</td>
+                <td><code class="notranslate">-tT</code></td>
+                <td><code class="notranslate">hdparm -tT /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fio</code></td>
+                <td>Flexible I/O tester</td>
+                <td><code class="notranslate">--name=</code>, <code class="notranslate">--rw=read</code>, <code
+                        class="notranslate">--bs=4k</code>, <code class="notranslate">--size=1G</code></td>
+                <td><code
+                        class="notranslate">fio --name=randread --rw=randread --bs=4k --size=1G --numjobs=4 --runtime=60 --group_reporting</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>11. Kernel Modules &amp; Boot Loader</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">lsmod</code></td>
+                <td>List loaded modules</td>
+                <td>–</td>
+                <td>`lsmod</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">modinfo</code></td>
+                <td>Show module info</td>
+                <td>–</td>
+                <td><code class="notranslate">modinfo ext4</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">modprobe</code></td>
+                <td>Insert/remove module (handles deps)</td>
+                <td><code class="notranslate">-r</code> remove, <code class="notranslate">-v</code> verbose</td>
+                <td><code class="notranslate">modprobe -v ext4</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">insmod</code> / <code class="notranslate">rmmod</code></td>
+                <td>Low‑level insert/remove (no deps)</td>
+                <td>–</td>
+                <td><code class="notranslate">insmod /lib/modules/$(uname -r)/kernel/fs/ext4/ext4.ko</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">depmod</code></td>
+                <td>Generate module dependencies</td>
+                <td><code class="notranslate">-a</code> all</td>
+                <td><code class="notranslate">depmod -a</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">grub2-mkconfig</code></td>
+                <td>Generate GRUB2 config</td>
+                <td><code class="notranslate">-o OUTPUT</code></td>
+                <td><code class="notranslate">grub2-mkconfig -o /boot/grub2/grub.cfg</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">grub2-install</code></td>
+                <td>Install GRUB2 to device</td>
+                <td><code class="notranslate">--target=i386-pc</code>, <code class="notranslate">--recheck</code></td>
+                <td><code class="notranslate">grub2-install --target=i386-pc /dev/sda</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">grub2-set-default</code></td>
+                <td>Set default entry</td>
+                <td><code class="notranslate">ENTRY</code></td>
+                <td><code class="notranslate">grub2-set-default 0</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">grub2-editenv</code></td>
+                <td>Edit GRUB environment block</td>
+                <td>–</td>
+                <td><code class="notranslate">grub2-editenv list</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">kernel-install</code></td>
+                <td>Install kernel + initramfs (Fedora/RHEL)</td>
+                <td>–</td>
+                <td><code
+                        class="notranslate">kernel-install add 5.14.0-70.13.1.el9_0.x86_64 /lib/modules/5.14.0-70.13.1.el9_0.x86_64/vmlinuz</code>
+                </td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dracut</code></td>
+                <td>Create initramfs image</td>
+                <td><code class="notranslate">-f</code> force, <code class="notranslate">--add</code></td>
+                <td><code class="notranslate">dracut -f /boot/initramfs-$(uname -r).img $(uname -r)</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">kexec</code></td>
+                <td>Load new kernel without reboot</td>
+                <td><code class="notranslate">-l</code> load, <code class="notranslate">-e</code> execute</td>
+                <td><code
+                        class="notranslate">kexec -l /boot/vmlinuz-$(uname -r) --initrd=/boot/initramfs-$(uname -r).img --reuse-cmdline</code>
+                </td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sysctl</code></td>
+                <td>(see above)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">systemctl</code></td>
+                <td>(see Services)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>12. Security &amp; Hardening Utilities</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">passwd</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chage</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">faillock</code></td>
+                <td>Display/manage faillock counters</td>
+                <td><code class="notranslate">--user</code>, <code class="notranslate">--reset</code></td>
+                <td><code class="notranslate">faillock --user jdoe --reset</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pam_tally2</code></td>
+                <td>(legacy)</td>
+                <td>–</td>
+                <td><code class="notranslate">pam_tally2 --user jdoe --reset</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">auditctl</code></td>
+                <td>(see Logging)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ausearch</code></td>
+                <td>(see Logging)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">aureport</code></td>
+                <td>(see Logging)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">setsebool</code></td>
+                <td>(see SELinux)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">semanage</code></td>
+                <td>(see SELinux)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">restorecon</code></td>
+                <td>Restore SELinux context</td>
+                <td><code class="notranslate">-Rv</code> recursive verbose</td>
+                <td><code class="notranslate">restorecon -Rv /var/www</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chcon</code></td>
+                <td>Change SELinux context temporarily</td>
+                <td><code class="notranslate">-t TYPE</code>, <code class="notranslate">-u USER</code>, <code
+                        class="notranslate">-r ROLE</code></td>
+                <td><code class="notranslate">chcon -t httpd_sys_content_t /var/www/html</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">getenforce</code> / <code class="notranslate">setenforce</code></td>
+                <td>SELinux mode</td>
+                <td>–</td>
+                <td><code class="notranslate">getenforce</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">semodule</code></td>
+                <td>Manage SELinux policy modules</td>
+                <td><code class="notranslate">-l</code>, <code class="notranslate">-i</code>, <code
+                        class="notranslate">-r</code></td>
+                <td><code class="notranslate">semodule -l</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iptables</code> / <code class="notranslate">firewall-cmd</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fail2ban-client</code></td>
+                <td>Manage fail2ban</td>
+                <td><code class="notranslate">status</code>, <code class="notranslate">start</code>, <code
+                        class="notranslate">stop</code>, <code class="notranslate">reload</code></td>
+                <td><code class="notranslate">fail2ban-client status sshd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lynis</code></td>
+                <td>Security auditing tool (if installed)</td>
+                <td><code class="notranslate">audit system</code></td>
+                <td><code class="notranslate">lynis audit system</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">openssl</code></td>
+                <td>TLS/SSL toolkit</td>
+                <td><code class="notranslate">version</code>, <code class="notranslate">req</code>, <code
+                        class="notranslate">x509</code>, <code class="notranslate">s_client</code></td>
+                <td><code class="notranslate">openssl version</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ssh-keygen</code></td>
+                <td>Generate SSH keys</td>
+                <td><code class="notranslate">-t rsa -b 4096</code>, <code class="notranslate">-f FILE</code>, <code
+                        class="notranslate">-C comment</code></td>
+                <td><code class="notranslate">ssh-keygen -t rsa -b 4096 -C "jdoe@example.com"</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ssh-copy-id</code></td>
+                <td>Install public key on remote</td>
+                <td><code class="notranslate">-i KEYFILE</code>, <code class="notranslate">-p PORT</code></td>
+                <td><code class="notranslate">ssh-copy-id -i ~/.ssh/id_rsa.pub -p 2222 user@host</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">gpg</code></td>
+                <td>GNU Privacy Guard</td>
+                <td><code class="notranslate">--gen-key</code>, <code class="notranslate">--list-keys</code>, <code
+                        class="notranslate">--encrypt</code>, <code class="notranslate">--decrypt</code></td>
+                <td><code class="notranslate">gpg --gen-key</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">htpasswd</code></td>
+                <td>Manage basic auth files (Apache)</td>
+                <td><code class="notranslate">-c</code> create, <code class="notranslate">-m</code> MD5, <code
+                        class="notranslate">-b</code> batch</td>
+                <td><code class="notranslate">htpasswd -c /etc/httpd/.htpasswd jdoe</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sudoers</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<hr>
+<h2>13. Miscellaneous Useful Commands</h2>
+<markdown-accessiblity-table>
+    <table role="table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Common Options</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="notranslate">script</code></td>
+                <td>Record terminal session</td>
+                <td><code class="notranslate">-a</code> append, <code class="notranslate">-q</code> quiet</td>
+                <td><code class="notranslate">script -a ~/session.log</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">history</code></td>
+                <td>Show bash history</td>
+                <td>–</td>
+                <td>`history</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">!!</code> / <code class="notranslate">!n</code></td>
+                <td>Bash history expansion</td>
+                <td>–</td>
+                <td><code class="notranslate">sudo !!</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">alias</code></td>
+                <td>Define/show aliases</td>
+                <td>–</td>
+                <td><code class="notranslate">alias ll='ls -lha'</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">unalias</code></td>
+                <td>Remove alias</td>
+                <td>–</td>
+                <td><code class="notranslate">unalias ll</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">env</code></td>
+                <td>Print environment</td>
+                <td>–</td>
+                <td>`env</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">printenv</code></td>
+                <td>Print a variable</td>
+                <td>–</td>
+                <td><code class="notranslate">printenv HOME</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">export</code></td>
+                <td>Set env var</td>
+                <td>–</td>
+                <td><code class="notranslate">export JAVA_HOME=/opt/jdk</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">unset</code></td>
+                <td>Remove env var or function</td>
+                <td>–</td>
+                <td><code class="notranslate">unset JAVA_HOME</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">source</code> / <code class="notranslate">.</code></td>
+                <td>Execute script in current shell</td>
+                <td>–</td>
+                <td><code class="notranslate">source ~/.bashrc</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">bash -c</code></td>
+                <td>Run a command string</td>
+                <td>–</td>
+                <td><code class="notranslate">bash -c 'echo $HOME'</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">which</code> / <code class="notranslate">type</code></td>
+                <td>Locate command</td>
+                <td>–</td>
+                <td><code class="notranslate">type -a ls</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">timeout</code></td>
+                <td>Run command with time limit</td>
+                <td><code class="notranslate">-s SIGNAL</code></td>
+                <td><code class="notranslate">timeout 30s dd if=/dev/zero of=/tmp/test bs=1M count=1024</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">flock</code></td>
+                <td>Manage lock files</td>
+                <td><code class="notranslate">-x</code> exclusive, <code class="notranslate">-n</code> non‑blocking</td>
+                <td><code class="notranslate">flock -n /tmp/mylock -c 'my_backup.sh'</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nice</code> / <code class="notranslate">renice</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ionice</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">watch</code></td>
+                <td>(see Logging)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">parallel</code></td>
+                <td>Run jobs in parallel (if installed)</td>
+                <td><code class="notranslate">-j</code> jobs</td>
+                <td><code class="notranslate">parallel -j 4 echo {} ::: {1..10}</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">xargs</code></td>
+                <td>Build and execute command lines from stdin</td>
+                <td><code class="notranslate">-n</code> args, <code class="notranslate">-0</code> null‑delimited</td>
+                <td>`find . -name "*.tmp" -print0</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">exec</code></td>
+                <td>Replace shell with command</td>
+                <td>–</td>
+                <td><code class="notranslate">exec /bin/bash</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">disown</code></td>
+                <td>Remove job from shell’s job table</td>
+                <td>–</td>
+                <td><code class="notranslate">disown %1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">bg</code> / <code class="notranslate">fg</code></td>
+                <td>Background/foreground jobs</td>
+                <td>–</td>
+                <td><code class="notranslate">bg %1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">jobs</code></td>
+                <td>List active jobs</td>
+                <td>–</td>
+                <td><code class="notranslate">jobs</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">screen</code></td>
+                <td>Multiplex terminals</td>
+                <td><code class="notranslate">-ls</code> list, <code class="notranslate">-S name</code> create, <code
+                        class="notranslate">-r</code> resume</td>
+                <td><code class="notranslate">screen -R mysession</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">tmux</code></td>
+                <td>Terminal multiplexer (alternative to screen)</td>
+                <td><code class="notranslate">new -s name</code>, <code class="notranslate">attach -t name</code>, <code
+                        class="notranslate">ls</code></td>
+                <td><code class="notranslate">tmux new -s work</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">scriptreplay</code></td>
+                <td>Replay a script timing file</td>
+                <td>–</td>
+                <td><code class="notranslate">scriptreplay timing.txt session.log</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">strace</code></td>
+                <td>Trace system calls</td>
+                <td><code class="notranslate">-c</code> summary, <code class="notranslate">-o FILE</code>, <code
+                        class="notranslate">-p PID</code></td>
+                <td><code class="notranslate">strace -p $(pgrep -f httpd) -o /tmp/strace.out -c</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ltrace</code></td>
+                <td>Trace library calls</td>
+                <td>–</td>
+                <td><code class="notranslate">ltrace -f ls</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsof</code></td>
+                <td>List open files</td>
+                <td><code class="notranslate">-i</code>, <code class="notranslate">-p PID</code>, <code
+                        class="notranslate">-d</code> descriptor</td>
+                <td><code class="notranslate">lsof -i :80</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fuser</code></td>
+                <td>Identify processes using files/sockets</td>
+                <td><code class="notranslate">-v</code> verbose, <code class="notranslate">-k</code> kill</td>
+                <td><code class="notranslate">fuser -vk /tmp/mysock</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nl</code></td>
+                <td>Number lines of files</td>
+                <td>–</td>
+                <td><code class="notranslate">nl -ba file.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">paste</code></td>
+                <td>Merge lines of files</td>
+                <td>–</td>
+                <td><code class="notranslate">paste file1.txt file2.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">join</code></td>
+                <td>Join lines on a common field</td>
+                <td>–</td>
+                <td><code class="notranslate">join -t, file1.csv file2.csv</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">split</code></td>
+                <td>Split file into pieces</td>
+                <td><code class="notranslate">-b SIZE</code>, <code class="notranslate">-l LINES</code></td>
+                <td><code class="notranslate">split -b 100M bigfile.iso part_</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">wc</code></td>
+                <td>Word/line/byte count</td>
+                <td><code class="notranslate">-l</code>, <code class="notranslate">-w</code>, <code
+                        class="notranslate">-c</code></td>
+                <td><code class="notranslate">wc -l /etc/passwd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sort</code></td>
+                <td>Sort lines</td>
+                <td><code class="notranslate">-n</code> numeric, <code class="notranslate">-r</code> reverse, <code
+                        class="notranslate">-u</code> unique</td>
+                <td><code class="notranslate">sort -n -u numbers.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">uniq</code></td>
+                <td>Report/omit repeated lines</td>
+                <td><code class="notranslate">-c</code> count, <code class="notranslate">-d</code> only duplicates</td>
+                <td><code class="notranslate">uniq -c sorted.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">tr</code></td>
+                <td>Translate/delete characters</td>
+                <td><code class="notranslate">-d</code> delete, <code class="notranslate">-s</code> squeeze</td>
+                <td><code class="notranslate">tr -d '\r' &lt; win.txt &gt; unix.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cut</code></td>
+                <td>Remove sections from each line</td>
+                <td><code class="notranslate">-d</code> delim, <code class="notranslate">-f</code> fields</td>
+                <td><code class="notranslate">cut -d: -f1,6 /etc/passwd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">awk</code></td>
+                <td>Pattern scanning &amp; processing</td>
+                <td>–</td>
+                <td><code class="notranslate">awk -F: '{print $1,$3}' /etc/passwd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sed</code></td>
+                <td>Stream editor</td>
+                <td><code class="notranslate">-e</code>, <code class="notranslate">-f</code>, <code
+                        class="notranslate">-i</code> in‑place</td>
+                <td><code class="notranslate">sed -i 's/foo/bar/g' file.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">grep</code> / <code class="notranslate">egrep</code> / <code
+                        class="notranslate">fgrep</code></td>
+                <td>(see File Management)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">diff</code></td>
+                <td>Compare files</td>
+                <td><code class="notranslate">-u</code> unified, <code class="notranslate">-r</code> recursive</td>
+                <td><code class="notranslate">diff -u file1.txt file2.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">patch</code></td>
+                <td>Apply a diff file</td>
+                <td><code class="notranslate">-p NUM</code></td>
+                <td><code class="notranslate">patch -p1 &lt; fix.patch</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cmp</code></td>
+                <td>Compare two files byte‑by‑byte</td>
+                <td>–</td>
+                <td><code class="notranslate">cmp file1.bin file2.bin</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">base64</code></td>
+                <td>Encode/decode base64</td>
+                <td><code class="notranslate">-d</code> decode</td>
+                <td><code class="notranslate">base64 -d file.b64 &gt; file.bin</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">md5sum</code> / <code class="notranslate">sha1sum</code> / <code
+                        class="notranslate">sha256sum</code></td>
+                <td>Compute/check hashes</td>
+                <td><code class="notranslate">-c</code> check</td>
+                <td><code class="notranslate">sha256sum -c CHECKSUMS</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">gzip</code> / <code class="notranslate">gunzip</code></td>
+                <td>Compress/decompress .gz</td>
+                <td><code class="notranslate">-k</code> keep original, <code class="notranslate">-t</code> test</td>
+                <td><code class="notranslate">gzip -k file.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">bzip2</code> / <code class="notranslate">bunzip2</code></td>
+                <td>Compress/decompress .bz2</td>
+                <td>–</td>
+                <td><code class="notranslate">bzip2 -k file.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">xz</code> / <code class="notranslate">unxz</code></td>
+                <td>Compress/decompress .xz</td>
+                <td>–</td>
+                <td><code class="notranslate">xz -z file.txt</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">tar</code></td>
+                <td>Archive utility</td>
+                <td><code class="notranslate">-c</code> create, <code class="notranslate">-x</code> extract, <code
+                        class="notranslate">-v</code> verbose, <code class="notranslate">-z</code> gzip, <code
+                        class="notranslate">-j</code> bzip2, <code class="notranslate">-J</code> xz, <code
+                        class="notranslate">-f FILE</code></td>
+                <td><code class="notranslate">tar -czvf backup.tar.gz /etc</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">zip</code> / <code class="notranslate">unzip</code></td>
+                <td>ZIP archive</td>
+                <td><code class="notranslate">-r</code> recurse, <code class="notranslate">-l</code> list</td>
+                <td><code class="notranslate">zip -r archive.zip dir/</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">rsync</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">scp</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sftp</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ftp</code></td>
+                <td>Legacy FTP client</td>
+                <td>–</td>
+                <td><code class="notranslate">ftp ftp.example.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lftp</code></td>
+                <td>Advanced FTP/HTTP/FISH client</td>
+                <td>–</td>
+                <td><code class="notranslate">lftp ftp.example.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">wget</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">curl</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lynx</code> / <code class="notranslate">elinks</code></td>
+                <td>Text‑mode web browsers</td>
+                <td>–</td>
+                <td><code class="notranslate">lynx http://example.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mailx</code> / <code class="notranslate">mail</code></td>
+                <td>Send mail from CLI</td>
+                <td><code class="notranslate">-s SUBJECT</code></td>
+                <td>`echo "body"</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mutt</code></td>
+                <td>Full‑featured mail client</td>
+                <td>–</td>
+                <td><code class="notranslate">muttset</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ssh-agent</code> / <code class="notranslate">ssh-add</code></td>
+                <td>Manage SSH keys in agent</td>
+                <td>–</td>
+                <td><code class="notranslate">ssh-add ~/.ssh/id_rsa</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">autossh</code></td>
+                <td>Automatically restart SSH tunnels</td>
+                <td>–</td>
+                <td><code class="notranslate">autossh -M 0 -f -N -L 8080:localhost:80 user@host</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ncdu</code></td>
+                <td>NCurses Disk Usage</td>
+                <td>–</td>
+                <td><code class="notranslate">ncdu /</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">btop</code></td>
+                <td>Resource monitor (like htop)</td>
+                <td>–</td>
+                <td><code class="notranslate">btop</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">glances</code></td>
+                <td>Cross‑platform monitoring</td>
+                <td>–</td>
+                <td><code class="notranslate">glances</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">htop</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iotop</code></td>
+                <td>(see Performance)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">vnstat</code></td>
+                <td>Network traffic logger</td>
+                <td><code class="notranslate">-l</code> live, <code class="notranslate">-d</code> days</td>
+                <td><code class="notranslate">vnstat -l</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">speedtest-cli</code></td>
+                <td>Test internet speed</td>
+                <td>–</td>
+                <td><code class="notranslate">speedtest-cli</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">iperf3</code></td>
+                <td>Network bandwidth measurement</td>
+                <td><code class="notranslate">-s</code> server, <code class="notranslate">-c HOST</code></td>
+                <td><code class="notranslate">iperf3 -c speedtest.server -t 30</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ethtool</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mii-tool</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">arp-scan</code></td>
+                <td>ARP scanning of local network</td>
+                <td>–</td>
+                <td><code class="notranslate">arp-scan -l</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nmap</code></td>
+                <td>Network exploration &amp; security auditing</td>
+                <td><code class="notranslate">-sS</code>, <code class="notranslate">-p-</code>, <code
+                        class="notranslate">-O</code></td>
+                <td><code class="notranslate">nmap -sS -p 1-1000 192.168.1.0/24</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">netcat</code> / <code class="notranslate">nc</code></td>
+                <td>(see Networking)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">socat</code></td>
+                <td>Multipurpose relay</td>
+                <td>–</td>
+                <td><code class="notranslate">socat TCP-LISTEN:8080,fork TCP:localhost:80</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">stunnel</code></td>
+                <td>TLS wrapper</td>
+                <td>–</td>
+                <td><code class="notranslate">stunnel /etc/stunnel/stunnel.conf</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">openssl s_client</code></td>
+                <td>Test TLS connection</td>
+                <td>–</td>
+                <td><code class="notranslate">openssl s_client -connect host:443 -servername host</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">certbot</code></td>
+                <td>Let’s Encrypt client (if installed)</td>
+                <td><code class="notranslate">certonly</code>, <code class="notranslate">renew</code></td>
+                <td><code class="notranslate">certbot certonly --webroot -w /var/www/html -d example.com</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fail2ban-client</code></td>
+                <td>(see Security)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">auditd</code></td>
+                <td>Auditing daemon (usually running)</td>
+                <td>–</td>
+                <td><code class="notranslate">systemctl status auditd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ausearch</code> / <code class="notranslate">aureport</code></td>
+                <td>(see Logging)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">setfacl</code> / <code class="notranslate">getfacl</code></td>
+                <td>(see Permissions)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chmod</code> / <code class="notranslate">chown</code></td>
+                <td>(see Permissions)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">useradd</code> / <code class="notranslate">usermod</code> / <code
+                        class="notranslate">userdel</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">groupadd</code> / <code class="notranslate">groupmod</code> / <code
+                        class="notranslate">groupdel</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">su</code> / <code class="notranslate">sudo</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">visudo</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chsh</code> / <code class="notranslate">chfn</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">passwd</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">chage</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">gpasswd</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">newgrp</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">id</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">whoami</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">groups</code></td>
+                <td>(see Users)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">last</code> / <code class="notranslate">lastb</code></td>
+                <td>(see Logging)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">w</code> / <code class="notranslate">who</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">uptime</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">hostname</code> / <code class="notranslate">hostnamectl</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">timedatectl</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">clock</code> / <code class="notranslate">hwclock</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">date</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cal</code></td>
+                <td>Show calendar</td>
+                <td>–</td>
+                <td><code class="notranslate">cal</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">bc</code></td>
+                <td>Calculator</td>
+                <td>–</td>
+                <td>`echo "2^10"</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">units</code></td>
+                <td>Unit conversion</td>
+                <td>–</td>
+                <td><code class="notranslate">units '60 mph' 'm/s'</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">xxd</code></td>
+                <td>Hex dump</td>
+                <td>–</td>
+                <td><code class="notranslate">xxd file.bin</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">od</code></td>
+                <td>Octal/hex dump</td>
+                <td>–</td>
+                <td><code class="notranslate">od -x file.bin</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">strings</code></td>
+                <td>Extract printable strings</td>
+                <td>–</td>
+                <td><code class="notranslate">strings /bin/bash</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">file</code></td>
+                <td>Determine file type</td>
+                <td>–</td>
+                <td><code class="notranslate">file /bin/ls</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">stat</code></td>
+                <td>Detailed file info</td>
+                <td>–</td>
+                <td><code class="notranslate">stat /etc/passwd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">readlink</code></td>
+                <td>Resolve symlinks</td>
+                <td><code class="notranslate">-f</code> canonical</td>
+                <td><code class="notranslate">readlink -f /usr/bin/python</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">realpath</code></td>
+                <td>Canonicalized absolute pathname</td>
+                <td>–</td>
+                <td><code class="notranslate">realpath ../bin/../lib</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">mktemp</code></td>
+                <td>Create temporary file/dir</td>
+                <td><code class="notranslate">-d</code> dir, <code class="notranslate">-t</code> template</td>
+                <td><code class="notranslate">mktemp -d</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">tempfile</code></td>
+                <td>Create temp file (deprecated)</td>
+                <td>–</td>
+                <td><code class="notranslate">tempfile</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dirname</code> / <code class="notranslate">basename</code></td>
+                <td>(see File Management)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pwd</code></td>
+                <td>(see File Management)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">cd</code></td>
+                <td>(see File Management)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pushd</code> / <code class="notranslate">popd</code></td>
+                <td>Directory stack</td>
+                <td>–</td>
+                <td><code class="notranslate">pushd /etc; popd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">dirs</code></td>
+                <td>Show directory stack</td>
+                <td>–</td>
+                <td><code class="notranslate">dirs</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">alias</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">unalias</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">history</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">fc</code></td>
+                <td>Fix/Re‑run commands</td>
+                <td>–</td>
+                <td><code class="notranslate">fc -s</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">bind</code></td>
+                <td>Readline key bindings</td>
+                <td>–</td>
+                <td><code class="notranslate">bind '"\C-x\C-e": shell-expand-line'</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">shopt</code></td>
+                <td>Bash shell options</td>
+                <td>–</td>
+                <td><code class="notranslate">shopt -s autocd</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">set</code></td>
+                <td>Set shell options</td>
+                <td>–</td>
+                <td><code class="notranslate">set -o nounset</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">unset</code></td>
+                <td>Unset variable/function</td>
+                <td>–</td>
+                <td><code class="notranslate">unset VAR</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">export</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">source</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">.</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">exec</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">eval</code></td>
+                <td>Evaluate arguments as shell code</td>
+                <td>–</td>
+                <td><code class="notranslate">eval "ls -l $DIR"</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">wait</code></td>
+                <td>Wait for background jobs</td>
+                <td>–</td>
+                <td><code class="notranslate">wait %1</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">jobs</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">bg</code> / <code class="notranslate">fg</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">disown</code></td>
+                <td>(see Misc)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">kill</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">killall</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pkill</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">pgrep</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">nice</code> / <code class="notranslate">renice</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ionice</code></td>
+                <td>(see System Info)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">schedtool</code></td>
+                <td>Set scheduler policy/priority</td>
+                <td>–</td>
+                <td><code class="notranslate">schedtool -F -p 10 -e myprog</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">taskset</code></td>
+                <td>Set/get CPU affinity</td>
+                <td>–</td>
+                <td><code class="notranslate">taskset -c 0-3 myprog</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">numactl</code></td>
+                <td>NUMA memory policy</td>
+                <td>–</td>
+                <td><code class="notranslate">numactl --cpunodebind=0 --membind=0 myprog</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">ulimit</code></td>
+                <td>Check/set user limits</td>
+                <td><code class="notranslate">-a</code> all, <code class="notranslate">-n</code> open files, <code
+                        class="notranslate">-u</code> processes</td>
+                <td><code class="notranslate">ulimit -n 4096</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">prlimit</code></td>
+                <td>Get/set process limits (Linux)</td>
+                <td>–</td>
+                <td><code class="notranslate">prlimit --pid 1234 --nofile=4096</code></td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">sysctl</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">/proc/sys/</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">modprobe</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">rmmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">insmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">depmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">kmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+            <tr>
+                <td><code class="notranslate">lsmod</code></td>
+                <td>(see Kernel Modules)</td>
+                <td>–</td>
+                <td>–</td>
+            </tr>
+        </tbody>
+    </table>
+</markdown-accessiblity-table>
+<p><em>(The above table is intentionally exhaustive; you can scroll through it for reference.)</em></p>
+<hr>
+<h2>14. How to Use This Guide for Your Practical Test</h2>
+<ol>
+    <li><strong>Focus on the “why”</strong> – understand what each option does, not just memorize syntax.</li>
+    <li><strong>Combine commands</strong> – real tasks often pipe outputs (e.g., <code
+            class="notranslate">journalctl -u nginx | grep error | tail -20</code>).</li>
+    <li><strong>Check man pages</strong> – <code class="notranslate">man &lt;command&gt;</code> is the ultimate
+        reference; use it when uncertain.</li>
+    <li><strong>Remember the hierarchy</strong>
+        <ul>
+            <li>File → User/Group → Permissions → Packages → Services → Networking → Storage → Logging → Performance →
+                Security.</li>
+        </ul>
+    </li>
+    <li><strong>Stay calm</strong> – if you forget a command, you can always fall back to <code
+            class="notranslate">command --help</code> or <code class="notranslate">man</code>.</li>
+</ol>
+<hr>
+<h3>Good luck on your practical test!</h3>
